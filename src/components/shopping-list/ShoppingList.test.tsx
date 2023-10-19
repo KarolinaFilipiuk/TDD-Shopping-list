@@ -24,3 +24,13 @@ test('clicking on an item calls onItemPick', () => {
 
   expect(onItemPick).toHaveBeenCalledWith('item1')
 })
+
+test('renders ShoppingList component with a title', () => {
+  const items = ['item1', 'item2', 'item3']
+  const onItemPick = jest.fn()
+
+  render(<ShoppingList items={items} onItemPick={onItemPick} />)
+
+  const titleElement = screen.getByText('Fruit I need to buy')
+  expect(titleElement).toBeInTheDocument()
+})
