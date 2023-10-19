@@ -18,7 +18,7 @@ test('renders App component with ShoppingList and PickedList components', () => 
 test('moving an item from ShoppingList to PickedList works', () => {
   render(<App />)
 
-  const itemToMove = screen.getByText('jeden')
+  const itemToMove = screen.getByText('tomato')
   fireEvent.click(itemToMove)
 
   const shoppingListItems = screen.queryAllByTestId('shopping-list-item')
@@ -26,4 +26,20 @@ test('moving an item from ShoppingList to PickedList works', () => {
 
   expect(shoppingListItems).toHaveLength(4)
   expect(pickedListItems).toHaveLength(1)
+})
+
+test('moving an item from PickedList to ShoppingList works', () => {
+  render(<App />)
+
+  const itemToMove = screen.getByText('tomato')
+  fireEvent.click(itemToMove)
+
+  const nextItemToMove = screen.getByText('tomato')
+  fireEvent.click(nextItemToMove)
+
+  const shoppingListItems = screen.queryAllByTestId('shopping-list-item')
+  const pickedListItems = screen.queryAllByTestId('picked-list-item')
+
+  expect(shoppingListItems).toHaveLength(5)
+  expect(pickedListItems).toHaveLength(0)
 })
