@@ -27,3 +27,23 @@ test('moving an item from column1 to column2 works', () => {
   expect(result.current.column1).toEqual(['kiwi', 'apple', 'banana', 'pomelo'])
   expect(result.current.column2).toEqual(['tomato'])
 })
+
+test('moving an item from column2 to column1 works', () => {
+  const { result } = renderHook(() => useShoppingList())
+
+  act(() => {
+    result.current.moveItem('tomato', 1, 2)
+  })
+  act(() => {
+    result.current.moveItem('tomato', 2, 1)
+  })
+
+  expect(result.current.column1).toEqual([
+    'kiwi',
+    'apple',
+    'banana',
+    'pomelo',
+    'tomato',
+  ])
+  expect(result.current.column2).toEqual([])
+})
